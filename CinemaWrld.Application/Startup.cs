@@ -44,6 +44,13 @@ namespace CinemaWrld.Application
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                using (var serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContex = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                    dbContex.Database.Migrate();
+                }
             }
             else
             {
