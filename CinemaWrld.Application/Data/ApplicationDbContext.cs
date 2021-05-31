@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CinemaWrld.Application.Models;
 
 namespace CinemaWrld.Application.Data
 {
@@ -32,7 +33,14 @@ namespace CinemaWrld.Application.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);  
+            base.OnModelCreating(builder);
+
+            builder
+                .Entity<Cinema>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
         }
+
+        public DbSet<CinemaWrld.Application.Models.CreateCinemaBindingModel> CreateCinemaBindingModel { get; set; }
     }
 }
