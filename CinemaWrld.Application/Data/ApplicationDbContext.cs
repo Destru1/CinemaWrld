@@ -41,6 +41,6 @@ namespace CinemaWrld.Application.Data
                 .IsUnique();
         }
 
-        public DbSet<CinemaWrld.Application.Models.CreateCinemaBindingModel> CreateCinemaBindingModel { get; set; }
+        
     }
 }

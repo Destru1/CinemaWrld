@@ -6,3 +6,13 @@
 <div>
     <a class="btn btn-outline-primary" asp-action="Create">Add cinema</a>
 </div>
+
+
+<div>
+    <ul>
+    @foreach (var cinema in Model.Cinemas)
+    {
+      <li>@cinema.WorkTime</li>
+    }
+        </ul>
+</div>
