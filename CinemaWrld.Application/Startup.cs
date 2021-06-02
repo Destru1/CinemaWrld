@@ -1,4 +1,6 @@
 using CinemaWrld.Application.Data;
+using CinemaWrld.Application.Services;
+using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +37,8 @@ namespace CinemaWrld.Application
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            RegisterDatabaseServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +54,8 @@ namespace CinemaWrld.Application
                     var dbContex = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
                     dbContex.Database.Migrate();
+
+                   
                 }
             }
             else
@@ -78,6 +84,11 @@ namespace CinemaWrld.Application
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private static void RegisterDatabaseServices(IServiceCollection services)
+        {
+            services.AddScoped<ICinemasService, CinemasService>();
         }
     }
 }

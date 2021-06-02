@@ -2,6 +2,7 @@
 using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
 using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
+using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,41 +13,49 @@ using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Areas.Making.Controllers
 {
-    [Area("Making")]
-    public class CinemasController : Controller
+   
+    public class CinemasController : MakingController
     {
 
-        private ApplicationDbContext dbContex;
-        private readonly IWebHostEnvironment hostEnvironment;
+        
+        //private readonly IWebHostEnvironment hostEnvironment;
+        private readonly ICinemasService cinemasService;
 
-        public CinemasController(ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment)
+        public CinemasController(ICinemasService cinemasService)
         {
-            dbContex = dbContext;
-            this.hostEnvironment = hostEnvironment;
+          
+            
+            this.cinemasService = cinemasService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            IEnumerable<CinemaViewModel> cinemaInfo = this.cinemasService.GetAll();
+
             CinemasViewModel cinemasViewModel = new CinemasViewModel();
-
-            List<CinemaViewModel> cinemaInfo = dbContex.Cinemas
-                .Select(cinemaInfo => new CinemaViewModel
-                {
-                    Name = cinemaInfo.Name,
-                    Location = cinemaInfo.Location,
-                    PhoneNumber = cinemaInfo.PhoneNumber
-                })
-                .ToList();
-
-
-
 
             cinemasViewModel.Cinemas = cinemaInfo;
 
 
 
 
-            return View(cinemasViewModel);
+            return this.View(cinemasViewModel);
+        }
+
+        [HttpGet]
+
+        public IActionResult Details(int id)
+        {
+            CinemaViewModel cinema = this.cinemasService.GetForViewById(id);
+
+            bool isCinemaNull = cinema == null;
+            if (isCinemaNull)
+            {
+                return this.RedirectToRoute("index");
+            }
+
+            return this.View(cinema);
         }
 
         [HttpGet]
@@ -56,13 +65,22 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
+
         public async Task<IActionResult> Create(CreateCinemaBindingModel model)
         {
 
-            Cinema cinema = new Cinema();
-            cinema.Name = model.Name;
-            cinema.Location = model.Location;
-            cinema.PhoneNumber = model.PhoneNumber;
+            Cinema cinemaFormDb = this.cinemasService.GetByName(model.Name);
+
+            bool isCinemaInDb = cinemaFormDb != null;
+            if (isCinemaInDb)
+            {
+                return this.RedirectToAction("index");
+
+             
+            }
+            await this.cinemasService.CreateAsync(model);
+
+            return this.RedirectToAction("index");
 
 
             //if (model.ImageFile != null)
@@ -78,17 +96,44 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
             //        await cinema.ImageFile.CopyToAsync(fileStream);
             //    }
 
-            await dbContex.Cinemas.AddAsync(cinema);
-            dbContex.SaveChanges();
-
-
-
-
-
-
-            return RedirectToAction("index");
 
         }
+
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            CinemaViewModel cinema = this.cinemasService.GetForViewById(id);
+
+            bool isCinemaNull = cinema == null;
+
+            if (isCinemaNull)
+            {
+                return RedirectToAction("index");
+            }
+            return this.View(cinema);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateCinemaBindingModel model)
+        {
+            await this.cinemasService.UpdateAsync(model);
+
+            return this.RedirectToAction("index");
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.cinemasService.DeleteAsync(id);
+
+            return this.RedirectToAction("index");
+        }
+
 
 
 
