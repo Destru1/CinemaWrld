@@ -8,11 +8,18 @@
 </div>
 
 
+
 <div>
+
     <ul>
-    @foreach (var cinema in Model.Cinemas)
-    {
-      <li>@cinema.Name | @cinema.Location | @cinema.PhoneNumber</li>
-    }
-        </ul>
+        @foreach (var cinema in Model.Cinemas)
+        {
+        <li>
+            <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@cinema.Id">
+                @cinema.Name | @cinema.Location | @cinema.PhoneNumber
+            </a>
+        </li>
+            
+        }
+    </ul>
 </div>

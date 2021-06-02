@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using CinemaWrld.Application.Models;
+using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
 
 namespace CinemaWrld.Application.Data
 {
@@ -40,6 +41,8 @@ namespace CinemaWrld.Application.Data
                 .HasIndex(c => c.Name)
                 .IsUnique();
         }
+
+       
 
         
     }
