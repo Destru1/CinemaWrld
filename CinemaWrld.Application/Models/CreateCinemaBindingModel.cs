@@ -27,7 +27,7 @@ namespace CinemaWrld.Application.Models
         [MaxLength(20)]
         public string PhoneNumber { get; set; }
 
-        public string WorkTime { get; set; }
+    
 
 
 

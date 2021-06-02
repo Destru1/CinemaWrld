@@ -61,7 +61,7 @@ namespace CinemaWrld.Application.Controllers
             cinema.Name = model.Name;
             cinema.Location = model.Location;
             cinema.PhoneNumber = model.PhoneNumber;
-            cinema.Worktime = model.WorkTime;
+         
 
             //if (model.ImageFile != null)
             //{

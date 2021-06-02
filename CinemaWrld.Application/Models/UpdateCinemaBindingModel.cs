@@ -18,9 +18,9 @@ namespace CinemaWrld.Application.Models
 
         public string PhoneNumber { get; set; }
 
-        public string Picture { get; set; }
+        //public string Picture { get; set; }
 
-        public IFormFile ImageFile { get; set; }
+        //public IFormFile ImageFile { get; set; }
     }
 }
 

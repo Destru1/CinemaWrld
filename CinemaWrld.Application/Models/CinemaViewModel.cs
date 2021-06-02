@@ -21,7 +21,7 @@ namespace CinemaWrld.Application.Models
 
         public string PhoneNumber { get; set; }
 
-        public string WorkTime { get; set; }
+       
     }
 
 
