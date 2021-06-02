@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CinemaWrld.Application.Models
+namespace CinemaWrld.Application.Areas.Making.Models.Cinemas.BindingModels
 {
     public class CreateCinemaBindingModel
     {
@@ -27,7 +27,7 @@ namespace CinemaWrld.Application.Models
         [MaxLength(20)]
         public string PhoneNumber { get; set; }
 
-    
+
 
 
 

@@ -1,6 +1,7 @@
-﻿using CinemaWrld.Application.Data;
+﻿using CinemaWrld.Application.Areas.Making.Models.Cinemas.BindingModels;
+using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
+using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
-using CinemaWrld.Application.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,8 +10,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CinemaWrld.Application.Controllers
+namespace CinemaWrld.Application.Areas.Making.Controllers
 {
+    [Area("Making")]
     public class CinemasController : Controller
     {
 
@@ -19,7 +21,7 @@ namespace CinemaWrld.Application.Controllers
 
         public CinemasController(ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment)
         {
-            this.dbContex = dbContext;
+            dbContex = dbContext;
             this.hostEnvironment = hostEnvironment;
         }
 
@@ -36,21 +38,21 @@ namespace CinemaWrld.Application.Controllers
                 })
                 .ToList();
 
-            
-            
+
+
 
             cinemasViewModel.Cinemas = cinemaInfo;
-           
 
 
 
-            return this.View(cinemasViewModel);
+
+            return View(cinemasViewModel);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return this.View();
+            return View();
         }
 
         [HttpPost]
@@ -61,7 +63,7 @@ namespace CinemaWrld.Application.Controllers
             cinema.Name = model.Name;
             cinema.Location = model.Location;
             cinema.PhoneNumber = model.PhoneNumber;
-         
+
 
             //if (model.ImageFile != null)
             //{
@@ -76,8 +78,8 @@ namespace CinemaWrld.Application.Controllers
             //        await cinema.ImageFile.CopyToAsync(fileStream);
             //    }
 
-            await this.dbContex.Cinemas.AddAsync(cinema);
-            this.dbContex.SaveChanges();
+            await dbContex.Cinemas.AddAsync(cinema);
+            dbContex.SaveChanges();
 
 
 
@@ -88,8 +90,8 @@ namespace CinemaWrld.Application.Controllers
 
         }
 
-           
 
-        }
+
     }
+}
 
