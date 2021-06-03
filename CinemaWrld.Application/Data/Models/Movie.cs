@@ -11,9 +11,7 @@ namespace CinemaWrld.Application.Data.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-       
-        public int CinemaId { get; set; }
+   
 
         [Required]
         public string Title { get; set; }
@@ -22,7 +20,11 @@ namespace CinemaWrld.Application.Data.Models
         
         public string Genre { get; set; }
 
+
         public enum EGenre {Action = 0, Comedy = 1, Adventure = 2, Drama = 3, Horror = 4, Romance = 5, Other = 6 }
+
+        [Required]
+        public bool IsAgeRestricted { get; set; }
 
         [Required]
         public int ReleaseYear { get; set; }
@@ -40,10 +42,14 @@ namespace CinemaWrld.Application.Data.Models
 
         public string Description { get; set; }
 
+
+        [Required]
+
+        public int CinemaId { get; set; }
         public virtual Cinema Cinema { get; set; }
 
 
-        public virtual ICollection<Cinema> Cinemas { get; set; }
+       
 
     }
 }

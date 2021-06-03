@@ -4,14 +4,16 @@ using CinemaWrld.Application.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaWrld.Application.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210603130346_Add_Movie_Table2")]
+    partial class Add_Movie_Table2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +32,9 @@ namespace CinemaWrld.Application.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MovieId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -38,6 +43,8 @@ namespace CinemaWrld.Application.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -288,6 +295,13 @@ namespace CinemaWrld.Application.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CinemaWrld.Application.Data.Models.Cinema", b =>
+                {
+                    b.HasOne("CinemaWrld.Application.Data.Models.Movie", null)
+                        .WithMany("Cinemas")
+                        .HasForeignKey("MovieId");
+                });
+
             modelBuilder.Entity("CinemaWrld.Application.Data.Models.Movie", b =>
                 {
                     b.HasOne("CinemaWrld.Application.Data.Models.Cinema", "Cinema")
@@ -353,6 +367,11 @@ namespace CinemaWrld.Application.Data.Migrations
             modelBuilder.Entity("CinemaWrld.Application.Data.Models.Cinema", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("CinemaWrld.Application.Data.Models.Movie", b =>
+                {
+                    b.Navigation("Cinemas");
                 });
 #pragma warning restore 612, 618
         }
