@@ -17,7 +17,7 @@ namespace CinemaWrld.Application.Data
         }
 
         public DbSet<Cinema> Cinemas { get; set; }
-
+        public DbSet<Movie> Movies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,6 +40,14 @@ namespace CinemaWrld.Application.Data
                 .Entity<Cinema>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
+
+
+            builder
+                .Entity<Movie>()
+                .HasOne(movie => movie.Cinema)
+                .WithMany(cinema => cinema.Movies)
+                .HasForeignKey(movie => movie.CinemaId);
+                
         }
 
        

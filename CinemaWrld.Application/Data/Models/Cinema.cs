@@ -10,6 +10,11 @@ namespace CinemaWrld.Application.Data.Models
 {
     public class Cinema
     {
+        public Cinema()
+        {
+            this.Movies = new HashSet<Movie>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -22,5 +27,6 @@ namespace CinemaWrld.Application.Data.Models
         public string PhoneNumber { get; set; }
 
      
+        public virtual ICollection<Movie> Movies { get; set; }
     }
 }
