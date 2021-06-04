@@ -89,6 +89,7 @@ namespace CinemaWrld.Application
         private static void RegisterDatabaseServices(IServiceCollection services)
         {
             services.AddScoped<ICinemasService, CinemasService>();
+            services.AddScoped<IMoviesService, MoviesService>();
         }
     }
 }

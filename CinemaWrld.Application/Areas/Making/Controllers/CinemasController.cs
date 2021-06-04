@@ -103,7 +103,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            CinemaViewModel cinema = this.cinemasService.GetForViewById(id);
+            CinemaViewModel  cinema = this.cinemasService.GetForViewById(id);
 
             bool isCinemaNull = cinema == null;
 
