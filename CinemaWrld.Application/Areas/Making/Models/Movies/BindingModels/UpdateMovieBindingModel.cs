@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,29 +13,39 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
         public int Id { get; set; }
 
         [Required]
+        [MinLength(2)]
+        [MaxLength(64)]
         public string Title { get; set; }
 
         [Required]
 
+        [MinLength(2)]
+        [MaxLength(64)]
         public string Genre { get; set; }
 
 
-        public enum EGenre { Action = 0, Comedy = 1, Adventure = 2, Drama = 3, Horror = 4, Romance = 5, Other = 6 }
+
 
         [Required]
+        [DisplayName("Age restricted")]
         public bool IsAgeRestricted { get; set; }
 
         [Required]
+        [Range(1950, 2030)]
+        [DisplayName("Release year")]
         public int ReleaseYear { get; set; }
 
         [Required]
+        [DisplayName("Duration (minutes)")]
+        [Range(60, 220)]
         public int Duration { get; set; }
 
         [Required]
+        [DisplayName("Premiere date")]
         public DateTime PremiereDate { get; set; }
 
 
-
+        [DisplayName("Last projection date")]
         public DateTime? LastProjectionDate { get; set; }
 
 
@@ -42,7 +53,7 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
 
 
         [Required]
-
+        [DisplayName("Cinema name")]
         public int CinemaId { get; set; }
     }
 }
