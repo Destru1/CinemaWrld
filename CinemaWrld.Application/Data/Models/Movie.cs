@@ -11,6 +11,7 @@ namespace CinemaWrld.Application.Data.Models
         public Movie()
         {
             this.Actors = new HashSet<Actor>();
+            this.Directors = new HashSet<Director>();
         }
 
         [Key]
@@ -54,6 +55,8 @@ namespace CinemaWrld.Application.Data.Models
         public virtual Cinema Cinema { get; set; }
 
         public virtual ICollection<Actor> Actors { get; set; }
+
+        public virtual ICollection<Director> Directors { get; set; }
 
 
        

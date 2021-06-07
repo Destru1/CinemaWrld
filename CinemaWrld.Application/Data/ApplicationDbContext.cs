@@ -23,6 +23,8 @@ namespace CinemaWrld.Application.Data
 
         public DbSet<Actor> Actors { get; set; }
 
+        public DbSet<Director> Directors { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -58,10 +60,16 @@ namespace CinemaWrld.Application.Data
                 .HasOne(actor => actor.Movie)
                 .WithMany(movies => movies.Actors)
                 .HasForeignKey(actor => actor.MovieId);
+
+            builder
+                .Entity<Director>()
+                .HasOne(director => director.Movie)
+                .WithMany(movies => movies.Directors)
+                .HasForeignKey(director => director.MovieId);
                 
         }
 
-        public DbSet<CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels.GetAllActorsViewModel> GetAllActorsViewModel { get; set; }
+       
 
        
 
