@@ -28,7 +28,7 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
         public bool IsAgeRestricted { get; set; }
 
         [Required]
-        [Range(1950, 2030)]
+        [Range(1888, 2030)]
         [DisplayName("Release year")]
         public int ReleaseYear { get; set; }
 

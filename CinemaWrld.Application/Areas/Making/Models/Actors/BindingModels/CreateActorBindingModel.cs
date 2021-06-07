@@ -10,10 +10,10 @@ namespace CinemaWrld.Application.Areas.Making.Models.Actors.BindingModels
     public class CreateActorBindingModel
     {
 
-        [Required]
-        [DisplayName("Actor Name")]
+        [Required]    
         [MinLength(2)]
         [MaxLength(64)]
+        [DisplayName("Actor Name")]
 
         public string Name { get; set; }
 
