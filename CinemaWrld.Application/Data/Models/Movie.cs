@@ -8,6 +8,11 @@ namespace CinemaWrld.Application.Data.Models
 {
     public class Movie
     {
+        public Movie()
+        {
+            this.Actors = new HashSet<Actor>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -47,6 +52,8 @@ namespace CinemaWrld.Application.Data.Models
 
         public int CinemaId { get; set; }
         public virtual Cinema Cinema { get; set; }
+
+        public virtual ICollection<Actor> Actors { get; set; }
 
 
        

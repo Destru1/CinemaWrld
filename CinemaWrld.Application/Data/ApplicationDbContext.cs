@@ -47,6 +47,13 @@ namespace CinemaWrld.Application.Data
                 .HasOne(movie => movie.Cinema)
                 .WithMany(cinema => cinema.Movies)
                 .HasForeignKey(movie => movie.CinemaId);
+
+
+            builder
+                .Entity<Actor>()
+                .HasOne(actor => actor.Movie)
+                .WithMany(movies => movies.Actors)
+                .HasForeignKey(actor => actor.MovieId);
                 
         }
 
