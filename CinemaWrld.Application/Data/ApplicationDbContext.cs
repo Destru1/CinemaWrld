@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using CinemaWrld.Application.Models;
 using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
+using CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels;
+using CinemaWrld.Application.Areas.Making.Models.Actors.BindingModels;
 
 namespace CinemaWrld.Application.Data
 {
@@ -18,6 +20,8 @@ namespace CinemaWrld.Application.Data
 
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Movie> Movies { get; set; }
+
+        public DbSet<Actor> Actors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -56,6 +60,10 @@ namespace CinemaWrld.Application.Data
                 .HasForeignKey(actor => actor.MovieId);
                 
         }
+
+        public DbSet<CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels.GetAllActorsViewModel> GetAllActorsViewModel { get; set; }
+
+       
 
         
 

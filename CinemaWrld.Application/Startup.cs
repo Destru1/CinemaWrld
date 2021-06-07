@@ -90,6 +90,7 @@ namespace CinemaWrld.Application
         {
             services.AddScoped<ICinemasService, CinemasService>();
             services.AddScoped<IMoviesService, MoviesService>();
+            services.AddScoped<IActorsService, ActorsService>();
         }
     }
 }

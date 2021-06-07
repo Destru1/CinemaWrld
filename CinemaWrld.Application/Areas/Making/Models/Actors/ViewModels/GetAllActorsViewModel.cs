@@ -10,9 +10,10 @@ namespace CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels
         public int Id { get; set; }
 
         public string Name { get; set; }
-
         public string MovieName { get; set; }
 
         public string PlayingAs { get; set; }
+
+
     }
 }
