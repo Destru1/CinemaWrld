@@ -42,30 +42,7 @@ namespace CinemaWrld.Application.Data
         {
             base.OnModelCreating(builder);
 
-            builder
-                .Entity<Cinema>()
-                .HasIndex(c => c.Name)
-                .IsUnique();
-
-
-            builder
-                .Entity<Movie>()
-                .HasOne(movie => movie.Cinema)
-                .WithMany(cinema => cinema.Movies)
-                .HasForeignKey(movie => movie.CinemaId);
-
-
-            builder
-                .Entity<Actor>()
-                .HasOne(actor => actor.Movie)
-                .WithMany(movies => movies.Actors)
-                .HasForeignKey(actor => actor.MovieId);
-
-            builder
-                .Entity<Director>()
-                .HasOne(director => director.Movie)
-                .WithMany(movies => movies.Directors)
-                .HasForeignKey(director => director.MovieId);
+            builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
                 
         }
 
