@@ -1,4 +1,5 @@
 using CinemaWrld.Application.Data;
+using CinemaWrld.Application.Infrastructure.Middlewares;
 using CinemaWrld.Application.Services;
 using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,8 @@ namespace CinemaWrld.Application
 
                    
                 }
+
+                app.UseMiddleware<GlobalExeptionMiddleware>();
             }
             else
             {
