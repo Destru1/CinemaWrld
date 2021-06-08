@@ -23,7 +23,7 @@ namespace CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels
         public int Age { get; set; }
 
         
-        [DisplayName("Playing as :")]
+        [DisplayName("Playing as:")]
       
         public string PlayingAs { get; set; }
 
