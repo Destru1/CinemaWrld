@@ -69,13 +69,6 @@ namespace CinemaWrld.Application.Data
                 
         }
 
-       
 
-       
-
-        
-
-
-        
     }
 }
