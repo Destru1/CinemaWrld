@@ -1,4 +1,5 @@
 using CinemaWrld.Application.Data;
+using CinemaWrld.Application.Data.Seed;
 using CinemaWrld.Application.Infrastructure.Middlewares;
 using CinemaWrld.Application.Services;
 using CinemaWrld.Application.Services.Interfaces;
@@ -36,7 +37,7 @@ namespace CinemaWrld.Application
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(IdentityOptionsProvider.GetIdentityOptions)
-                
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
@@ -57,6 +58,8 @@ namespace CinemaWrld.Application
 
                     dbContex.Database.Migrate();
 
+                    ApplicationDbContextSeeder seeder = new ApplicationDbContextSeeder(serviceScope.ServiceProvider);
+                    seeder.SeedDatabaseAsync().GetAwaiter().GetResult();
                    
                 }
 
