@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Constants
 {
-    public class NotificationsConstants
+    public static class NotificationsConstants
     {
         public const string SUCCESS_NOTIFICATION = "Success";
         public const string ERROR_NOTIFICATION = "Error";
