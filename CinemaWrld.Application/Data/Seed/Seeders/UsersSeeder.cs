@@ -1,4 +1,5 @@
 ﻿using CinemaWrld.Application.Constants;
+using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Data.Seed.Seeders.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,15 +18,15 @@ namespace CinemaWrld.Application.Data.Seed.Seeders
 
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            UserManager<IdentityUser> userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            UserManager<ApplicationUser> userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            IdentityUser user = new IdentityUser
+            ApplicationUser user = new ApplicationUser
             {
                 UserName = UsersConstants.USER_USERNAME,
                 Email = UsersConstants.USER_EMAIL,
             };
 
-            IdentityUser admin = new IdentityUser
+            ApplicationUser admin = new ApplicationUser
             {
                 UserName = UsersConstants.ADMIN_USERNAME,
                 Email = UsersConstants.ADMIN_EMAIL,

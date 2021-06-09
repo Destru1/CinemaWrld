@@ -1,4 +1,5 @@
 using CinemaWrld.Application.Data;
+using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Data.Seed;
 using CinemaWrld.Application.Infrastructure.Middlewares;
 using CinemaWrld.Application.Services;
@@ -36,7 +37,7 @@ namespace CinemaWrld.Application
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(IdentityOptionsProvider.GetIdentityOptions)
+            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

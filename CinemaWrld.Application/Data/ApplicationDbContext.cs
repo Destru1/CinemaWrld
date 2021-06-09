@@ -11,7 +11,7 @@ using CinemaWrld.Application.Areas.Making.Models.Actors.BindingModels;
 
 namespace CinemaWrld.Application.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,6 +24,8 @@ namespace CinemaWrld.Application.Data
         public DbSet<Actor> Actors { get; set; }
 
         public DbSet<Director> Directors { get; set; }
+
+        public DbSet<MovieUser> MoviesUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,7 +48,7 @@ namespace CinemaWrld.Application.Data
                 
         }
 
-        public DbSet<CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels.CinemasIdNameViewModel> CinemasIdNameViewModel { get; set; }
+     
 
 
     }
