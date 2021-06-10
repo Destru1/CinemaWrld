@@ -49,6 +49,8 @@ namespace CinemaWrld.Application.Data.Models
 
         public string Description { get; set; }
 
+        public int Votes { get; set; }
+
 
         [Required]
 

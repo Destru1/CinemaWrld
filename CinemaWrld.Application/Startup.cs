@@ -64,7 +64,7 @@ namespace CinemaWrld.Application
                    
                 }
 
-                app.UseMiddleware<GlobalExeptionMiddleware>();
+                //app.UseMiddleware<GlobalExeptionMiddleware>();
             }
             else
             {
@@ -100,6 +100,7 @@ namespace CinemaWrld.Application
             services.AddScoped<IMoviesService, MoviesService>();
             services.AddScoped<IActorsService, ActorsService>();
             services.AddScoped<IDirectorsService, DirectorsService>();
+            services.AddScoped<IMovieUsersService, MovieUsersService>();
         }
     }
 }

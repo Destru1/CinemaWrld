@@ -1,7 +1,11 @@
 ﻿using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
+using CinemaWrld.Application.Constants;
+using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,11 +18,15 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
     {
         private readonly IMoviesService moviesService;
         private readonly ICinemasService cinemasService;
+        private readonly IMovieUsersService movieUsersService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public MoviesController(IMoviesService moviesService, ICinemasService cinemasService)
+        public MoviesController(IMoviesService moviesService, ICinemasService cinemasService, IMovieUsersService movieUsersService, UserManager<ApplicationUser> userManager)
         {
             this.moviesService = moviesService;
             this.cinemasService = cinemasService;
+            this.movieUsersService = movieUsersService;
+            this.userManager = userManager;
         }
 
 
@@ -48,6 +56,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             IEnumerable<CinemasIdNameViewModel> cinemas = this.moviesService.GetByName();
@@ -66,6 +75,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
 
         public async Task<IActionResult> Create(CreateMovieBindingModel model)
         {
@@ -81,6 +92,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
+        [Authorize]
 
         public IActionResult Update(int id)
         {
@@ -103,7 +115,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
-
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UpdateMovieBindingModel model)
         {
 
@@ -117,9 +130,51 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await this.moviesService.DeleteAsync(id);
+
+            return this.RedirectToAction("index");
+        }
+
+
+        [Authorize]
+        public async Task<IActionResult> Enroll(int id)
+        {
+            ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
+
+            bool isEnrolled = await this.movieUsersService.EnrollUserToVoteAsync(currentUser.Id, id);
+
+            if (isEnrolled)
+            {
+                this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFULLY_VOTED_MOVIE;
+            }
+            else
+            {
+                this.TempData[NotificationsConstants.WARNING_NOTIFICATION] = ExceptionConstants.ALREADY_VOTED_MOVIE;
+            }
+
+            return this.RedirectToAction("index");
+
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Disenroll(int id)
+        {
+            ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
+
+            bool isEnrolled = await this.movieUsersService.RemoveUserVoteAsync(currentUser.Id, id);
+
+            if (isEnrolled)
+            {
+                this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFULLY_UNVOTED_MOVIE;
+            }
+
+            else
+            {
+                this.TempData[NotificationsConstants.WARNING_NOTIFICATION] = ExceptionConstants.ALREADY_UNVOTED_MOVIE;
+            }
 
             return this.RedirectToAction("index");
         }

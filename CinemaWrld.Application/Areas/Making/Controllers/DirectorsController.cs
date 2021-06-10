@@ -2,6 +2,7 @@
 using CinemaWrld.Application.Areas.Making.Models.Directors.ViewModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
 using CinemaWrld.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             IEnumerable<GetAllMoviesViewModel> movies = this.directorsService.GetByName();
@@ -58,6 +60,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(CreateDirectorBindingModel model)
         {
             if (this.ModelState.IsValid == false)
@@ -71,6 +75,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Update(int id)
         {
             UpdateDirectorBindingModel director = this.directorsService.UpdateById(id);
@@ -92,6 +97,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UpdateDirectorBindingModel model)
         {
             if (this.ModelState.IsValid == false)
@@ -105,6 +112,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await this.directorsService.DeleteAsync(id);

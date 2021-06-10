@@ -2,6 +2,7 @@
 using CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
 using CinemaWrld.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
+        [Authorize]
 
         public IActionResult Create()
         {
@@ -60,6 +62,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(CreateActorBindingModel model)
         {
             if (this.ModelState.IsValid == false)
@@ -73,7 +77,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-
+        [Authorize]
         public IActionResult Update(int id)
         {
             UpdateActorBindingModel actor = this.actorsService.UpdateById(id);
@@ -95,6 +99,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
 
         public async Task<IActionResult> Update(UpdateActorBindingModel model)
         {
@@ -108,6 +114,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await this.actorsService.DeleteAsync(id);

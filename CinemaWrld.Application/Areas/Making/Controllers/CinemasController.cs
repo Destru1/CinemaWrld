@@ -3,6 +3,7 @@ using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
 using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -59,12 +60,16 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+    
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
 
         public async Task<IActionResult> Create(CreateCinemaBindingModel model)
         {
@@ -101,6 +106,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public IActionResult Update(int id)
         {
             CinemaViewModel  cinema = this.cinemasService.GetForViewById(id);
@@ -117,6 +123,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpPost]
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UpdateCinemaBindingModel model)
         {
             await this.cinemasService.UpdateAsync(model);
@@ -127,6 +135,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await this.cinemasService.DeleteAsync(id);
