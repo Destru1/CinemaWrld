@@ -41,6 +41,7 @@ namespace CinemaWrld.Application.Services
 
             await AddVote(movieId);
             await this.dbContext.MoviesUsers.AddAsync(movieUser);
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
