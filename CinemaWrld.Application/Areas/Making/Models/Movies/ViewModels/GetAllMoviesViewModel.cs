@@ -13,5 +13,7 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels
 
         public bool UserHasVoted { get; set; }
 
+        public int Votes { get; set; }
+
     }
 }
