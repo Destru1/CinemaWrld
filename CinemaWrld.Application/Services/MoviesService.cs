@@ -14,20 +14,22 @@ namespace CinemaWrld.Application.Services
     public class MoviesService : IMoviesService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IMovieUsersService movieUsersService;
 
-
-        public MoviesService(ApplicationDbContext dbContext)
+        public MoviesService(ApplicationDbContext dbContext, IMovieUsersService movieUsersService)
         {
-            this.dbContext = dbContext; 
+            this.dbContext = dbContext;
+            this.movieUsersService = movieUsersService;
         }
 
-        public IEnumerable<GetAllMoviesViewModel> GetAll()
+        public IEnumerable<GetAllMoviesViewModel> GetAll(string userId)
         {
             IEnumerable<GetAllMoviesViewModel> movies = this.dbContext.Movies
                 .Select(movies => new GetAllMoviesViewModel
                 {
                     Id = movies.Id,
                     Title = movies.Title,
+                    UserHasVoted = this.movieUsersService.HasAlreadyVoted(userId, movies.Id),
                 })
                 .ToList();
 

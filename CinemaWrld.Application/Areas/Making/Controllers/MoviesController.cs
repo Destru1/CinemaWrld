@@ -31,10 +31,10 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
-            IEnumerable<GetAllMoviesViewModel> movies = this.moviesService.GetAll();
+            ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
+            IEnumerable<GetAllMoviesViewModel> movies = this.moviesService.GetAll(currentUser.Id);
 
             return this.View(movies);
         }
@@ -144,7 +144,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         {
             ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
 
-            bool isEnrolled = await this.movieUsersService.EnrollUserToVoteAsync(currentUser.Id, id);
+                bool isEnrolled = await this.movieUsersService.EnrollUserToVoteAsync(currentUser.Id, id);
 
             if (isEnrolled)
             {
@@ -164,9 +164,9 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         {
             ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
 
-            bool isEnrolled = await this.movieUsersService.RemoveUserVoteAsync(currentUser.Id, id);
+            bool isDisenrolled = await this.movieUsersService.RemoveUserVoteAsync(currentUser.Id, id);
 
-            if (isEnrolled)
+            if (isDisenrolled)
             {
                 this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFULLY_UNVOTED_MOVIE;
             }

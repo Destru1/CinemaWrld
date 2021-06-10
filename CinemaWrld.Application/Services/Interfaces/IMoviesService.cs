@@ -10,7 +10,7 @@ namespace CinemaWrld.Application.Services.Interfaces
 {
     public interface IMoviesService
     {
-        IEnumerable<GetAllMoviesViewModel> GetAll();
+        IEnumerable<GetAllMoviesViewModel> GetAll(string currentUser);
 
         MoviesViewModel GetById(int id);
 

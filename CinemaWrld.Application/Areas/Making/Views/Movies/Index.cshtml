@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Title)</a>
             </th>
             <th></th>
         </tr>
@@ -36,6 +36,32 @@
 
 
 
+                }
+            </td>
+            <td>
+                @if (!item.UserHasVoted)
+                {
+                    <a asp-area="Making"
+                       asp-controller="Movies"
+                       asp-action="Enroll"
+                       asp-route-id="@item.Id"
+                       class="btn btn-outline-success w-25">
+                        Vote
+                    </a>
+
+
+                  
+
+                }
+                else
+                {
+                    <a asp-area="Making"
+                       asp-controller="Movies"
+                       asp-action="Disenroll"
+                       asp-route-id="@item.Id"
+                       class="btn btn-outline-danger w-25">
+                        Unvote
+                    </a>
                 }
             </td>
         </tr>

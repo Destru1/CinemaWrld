@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Data.TypeConfiguration
 {
-    public class LessonUserTypeConfiguration : IEntityTypeConfiguration<MovieUser>
+    public class MovieUserTypeConfiguration : IEntityTypeConfiguration<MovieUser>
     {
         public void Configure(EntityTypeBuilder<MovieUser> builder)
         {
