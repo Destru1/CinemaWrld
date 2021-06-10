@@ -12,108 +12,110 @@ namespace CinemaWrld.Application.Services
 {
     public class MovieUsersService : IMovieUsersService
     {
+       
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IMoviesService moviesService;
+       
 
-        public MovieUsersService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IMoviesService moviesService)
+        public MovieUsersService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
-            this.moviesService = moviesService;
+           
         }
-
 
         public async Task<bool> EnrollUserToVoteAsync(string userId, int movieId)
         {
-            await ChekIfUserAndMovieExsistAsync(userId, movieId);
+            await CheckIfMoviesAndUsersExistAsync(userId, movieId);
 
-            if (this.HasAlreadyVoted(userId,movieId) == false)
+            if (this.HasAlreadyVoted(userId,movieId))
             {
-                throw new InvalidOperationException(ExceptionConstants.ALREADY_VOTED_MOVIE);
+                return false;
             }
+           
 
             MovieUser movieUser = new MovieUser()
             {
                 UserId = userId,
                 MovieId = movieId,
             };
-
-            await AddVote(movieId);
+            await AddVoteAsync(movieId);
             await this.dbContext.MoviesUsers.AddAsync(movieUser);
             await this.dbContext.SaveChangesAsync();
 
             return true;
         }
 
+        public bool HasAlreadyVoted(string userId, int movieId)
+        {
+            MovieUser vote = this.GetVote(userId, movieId);
+
+            bool isVoted = vote != null;
+
+            return isVoted;
+        }
+
         public async Task<bool> RemoveUserVoteAsync(string userId, int movieId)
         {
-            await ChekIfUserAndMovieExsistAsync(userId, movieId);
-            if (this.HasAlreadyVoted(userId,movieId) == false)
+            await CheckIfMoviesAndUsersExistAsync(userId, movieId);
+
+            if (this.HasAlreadyVoted(userId, movieId) == false)
             {
                 return false;
             }
 
-            MovieUser movieUser = GetVotes(userId, movieId);
-            await Unvote(movieId);
+            MovieUser vote = this.GetVote(userId, movieId);
 
-            this.dbContext.MoviesUsers.Remove(movieUser);
+            await RemoveVoteAsync(movieId);
+            this.dbContext.MoviesUsers.Remove(vote);
             await this.dbContext.SaveChangesAsync();
 
             return true;
         }
 
-        private  async Task Unvote(int movieId)
+        private async Task AddVoteAsync(int movieId)
         {
             Movie movie = this.dbContext.Movies
-                 .SingleOrDefault(movie => movie.Id == movieId);
-
-            movie.Votes -= 1;
-
-            this.dbContext.Update(movie);
-            await this.dbContext.SaveChangesAsync();
-        }
-
-        private async Task AddVote(int movieId)
-        {
-            Movie movie = this.dbContext.Movies
-                  .SingleOrDefault(movie => movie.Id == movieId);
+                .SingleOrDefault(movie => movie.Id == movieId);
             movie.Votes += 1;
 
             this.dbContext.Update(movie);
             await this.dbContext.SaveChangesAsync();
         }
 
-        public bool HasAlreadyVoted(string userId, int movieId)
+        private async Task RemoveVoteAsync(int movieId)
         {
-            MovieUser vote = GetVotes(userId, movieId);
+            Movie movie = this.dbContext.Movies
+                .SingleOrDefault(movie => movie.Id == movieId);
+            movie.Votes -= 1;
 
-                bool isVoted = vote != null;
+            this.dbContext.Update(movie);
+            await this.dbContext.SaveChangesAsync();
 
-            return isVoted;
         }
 
-        private MovieUser GetVotes(string userId, int movieId)
+        private async Task CheckIfMoviesAndUsersExistAsync(string userId, int movieId)
         {
-            MovieUser userMovie = this.dbContext.MoviesUsers
-                 .FirstOrDefault(userMovie => userMovie.UserId == userId && userMovie.MovieId == movieId);
 
-            return userMovie;
-        }
+            bool isMovieExisting = this.dbContext.Movies.Any(m => m.Id == movieId);
 
-        private async Task ChekIfUserAndMovieExsistAsync(string userId, int movieId)
-        {
-            bool isMovieExisting = this.moviesService.CheckIfMovieExist(movieId);
-
-            if (isMovieExisting)
+            if (isMovieExisting == false)
             {
                 throw new ArgumentException(ExceptionConstants.NOT_EXISTING_MOVIE_ERROR_MESSAGE);
             }
 
             if (await this.userManager.FindByIdAsync(userId) == null)
             {
-                throw new ArgumentException(ExceptionConstants.NOT_EXISTING_USER_ERROR_MESSAGE);
+                throw new AggregateException(ExceptionConstants.NOT_EXISTING_USER_ERROR_MESSAGE);
             }
+        }
+
+        private MovieUser GetVote(string userId, int movieId)
+        {
+          MovieUser vote = this.dbContext.MoviesUsers
+                .FirstOrDefault(mu => mu.UserId == userId && mu.MovieId == movieId);
+
+            return vote;
         }
     }
 }
