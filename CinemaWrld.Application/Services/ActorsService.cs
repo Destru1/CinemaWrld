@@ -13,6 +13,7 @@ namespace CinemaWrld.Application.Services
 {
     public class ActorsService : IActorsService
     {
+        private const int ACTORS_PER_PAGE = 2;
 
         private readonly ApplicationDbContext dbContext;
 
@@ -21,8 +22,14 @@ namespace CinemaWrld.Application.Services
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<GetAllActorsViewModel> GetAll()
+        public PaginationActorsViewModel GetAll(int page)
         {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            int pageMultiplier = page - 1;
             IEnumerable<GetAllActorsViewModel> actors = this.dbContext.Actors
                 .Select(actors => new GetAllActorsViewModel
                 {
@@ -33,9 +40,21 @@ namespace CinemaWrld.Application.Services
 
 
                 })
+                .Skip(pageMultiplier * ACTORS_PER_PAGE)
+                .Take(ACTORS_PER_PAGE)
                 .ToList();
 
-            return actors;
+            int totalPages = (int)Math.Ceiling(this.dbContext.Actors.Count() / (double)ACTORS_PER_PAGE);
+
+            PaginationActorsViewModel paginationActors = new PaginationActorsViewModel()
+            {
+                Actors = actors,
+                CurrentPage = page,
+                TotalPages = totalPages,
+            };
+
+
+             return paginationActors;
         }
 
         public ActorsViewModel GetById(int id)

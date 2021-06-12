@@ -10,7 +10,7 @@ namespace CinemaWrld.Application.Services.Interfaces
 {
     public interface IActorsService
     {
-        IEnumerable<GetAllActorsViewModel> GetAll();
+        PaginationActorsViewModel GetAll(int id);
 
         ActorsViewModel GetById(int id);
 

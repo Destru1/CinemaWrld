@@ -22,11 +22,11 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            IEnumerable<GetAllActorsViewModel> actors = this.actorsService.GetAll();
+            PaginationActorsViewModel paginationActors = this.actorsService.GetAll(page);
 
-            return this.View(actors);
+            return this.View(paginationActors);
         }
 
         [HttpGet]
