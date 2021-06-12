@@ -11,6 +11,8 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels
 
         public string Title { get; set; }
 
+        public int Year { get; set; }
+
         public bool UserHasVoted { get; set; }
 
         public int Votes { get; set; }

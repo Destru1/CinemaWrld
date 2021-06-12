@@ -13,19 +13,29 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Title)</a>
+                <a class="text-decoration-none" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Title)</a>
+            </th>
+            <th>
+                <a class="text-decoration-none" asp-action="Index" asp-route-sortOrder="@ViewData["YearSortParm"]">@Html.DisplayNameFor(model => model.Year)</a>
             </th>
             <th>Links</th>
             <th>Vote/Unvote</th>
-            <th>Votes</th>
+            <th>
+                <a class="text-decoration-none" asp-action="Index" asp-route-sortOrder="@ViewData["VoteSortParm"]">@Html.DisplayNameFor(model => model.Votes)</a>
+            </th>
         </tr>
     </thead>
-    <tbody class="d-print-table-row ">
+    <tbody class="d-print-table-row">
 @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+
             <td>
                 <a class="bg-info btn text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
@@ -34,7 +44,7 @@
                     <span>|</span>
                     <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@item.Id">Update</a>
                     <span>|</span>
-                    <a  class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 
 
 
@@ -52,7 +62,7 @@
                     </a>
 
 
-                  
+
 
                 }
                 else

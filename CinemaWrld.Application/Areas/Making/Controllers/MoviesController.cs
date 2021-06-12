@@ -31,10 +31,32 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
             ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
             IEnumerable<GetAllMoviesViewModel> movies = this.moviesService.GetAll(currentUser.Id);
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["YearSortParm"] = sortOrder == "int" ? "year_desc" : "int";
+            ViewData["VoteSortParm"] = sortOrder == "int" ? "vote_desc" : "int";
+            
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    movies = movies.OrderByDescending(m => m.Title);
+                        break;
+
+                case "year_desc":
+                    movies = movies.OrderByDescending(m => m.Year);
+                    break;
+                case "vote_desc":
+                    movies = movies.OrderByDescending(m => m.Votes);
+                    break;
+                default:
+                    movies = movies.OrderBy(m => m.Title);
+                    break;
+            }
 
             return this.View(movies);
         }

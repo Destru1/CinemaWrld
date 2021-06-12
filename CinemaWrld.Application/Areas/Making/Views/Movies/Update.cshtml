@@ -20,7 +20,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Genre" class="control-label"></label>
-                <input asp-for="Genre" class="form-control" />
+                <select asp-for="Genre" class="form-control">
+                    <option>Action</option>
+                    <option>Comedy</option>
+                    <option>Drama</option>
+                    <option>Fantasy</option>
+                    <option>Romance</option>
+                    <option>Horror</option>
+                    <option>Other</option>
+                </select>
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -50,13 +58,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CinemaId" class="control-label"></label>
-                <input asp-for="CinemaId" class="form-control" />
-                <span asp-validation-for="CinemaId" class="text-danger"></span>
+                <select asp-for="CinemaId" class="form-control">
+                    @foreach (var cinema in ViewBag.Cinemas)
+                    {
+                        <option value="@cinema.Id">@cinema.Name</option>
+                    }
+
+                </select>
+
+                
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

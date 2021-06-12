@@ -31,6 +31,7 @@ namespace CinemaWrld.Application.Services
                     Title = movies.Title,
                     UserHasVoted = this.movieUsersService.HasAlreadyVoted(userId, movies.Id),
                     Votes = movies.Votes,
+                    Year = movies.ReleaseYear,
                 })
                 .ToList();
 
