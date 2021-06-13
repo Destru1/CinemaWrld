@@ -6,9 +6,14 @@
 
 <h1 class="text-center">Directors</h1>
 
+
+@if (this.User.IsInRole(RolesConstants.USER_ROLE_NAME) || this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+{
 <div>
     <a class="btn btn-outline-dark " asp-action="Create">Create director</a>
 </div>
+}
+
 <br />
 <table class="table">
     <thead>
