@@ -64,7 +64,7 @@ namespace CinemaWrld.Application
                    
                 }
 
-                //app.UseMiddleware<GlobalExeptionMiddleware>();
+                app.UseMiddleware<GlobalExeptionMiddleware>();
             }
             else
             {
