@@ -4,12 +4,15 @@
     ViewData["Title"] = "Update";
 }
 
-<h1>Update</h1>
+<h1 class="text-center">Update director</h1>
 
-<h4>UpdateDirectorBindingModel</h4>
+<div>
+    <a class="btn btn-warning " asp-action="Index"><--</a>
+</div>
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="w-50 mx-auto">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -39,13 +42,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save changes" class="btn btn-warning w-100 mx-auto" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

@@ -14,10 +14,9 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
         [MaxLength(64)]
         public string Title { get; set; }
 
-        [Required]
+     
 
-        [MinLength(2)]
-        [MaxLength(64)]
+        
         public string Genre { get; set; }
 
 

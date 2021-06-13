@@ -4,11 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Directors</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div>
+    <a class="btn btn-outline-dark " asp-action="Create">Create director</a>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -18,35 +19,37 @@
             <th>
                 @Html.DisplayNameFor(model => model.MovieDirecting)
             </th>
-            <th></th>
+            <th>Links</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieDirecting)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieDirecting)
+                </td>
+                <td>
 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-              
+                    <a class="bg-info btn text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-                @if (this.User.Identity.IsAuthenticated)
-                {
-                    <span>|</span>
-                    <a asp-action="Update" asp-route-id="@item.Id">Update</a>
-                    <span>|</span>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (this.User.IsInRole(RolesConstants.USER_ROLE_NAME) || this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+                    {
+                        <span>|</span>
+                        <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@item.Id">Update</a>
 
+                    }
 
-
-                }
-            </td>
-        </tr>
-}
+                    @if (this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+                    {
+                        <span>|</span>
+                        <a class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

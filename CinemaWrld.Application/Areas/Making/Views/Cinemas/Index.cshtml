@@ -1,25 +1,62 @@
 ﻿@model CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels.CinemasViewModel
-@{}
+@{ 
+    ViewData["Title"] = "Cinemas";
+}
 
-
-
-<div>
-    <a class="btn btn-outline-primary" asp-action="Create">Add cinema</a>
-</div>
-
-
+<h1 class="text-center">Cinemas</h1>
 
 <div>
-
-    <ul>
-        @foreach (var cinema in Model.Cinemas)
-        {
-        <li>
-            <a asp-controller="Cinemas" asp-action="Details" asp-route-id="@cinema.Id">
-                @cinema.Name | @cinema.Location | @cinema.PhoneNumber
-            </a>
-        </li>
-            
-        }
-    </ul>
+    <a class="btn btn-outline-dark" asp-action="Create">Add cinema</a>
 </div>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+           <th>Cinema name</th>
+           <th>Location</th>
+           <th>Phone number</th>
+           <th>Links</th>
+        </tr>
+    </thead>
+
+
+    <tbody class="d-print-table-row">
+
+        
+            @foreach (var item in Model.Cinemas)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+
+                
+
+                @if (this.User.IsInRole(RolesConstants.USER_ROLE_NAME) || this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+                {
+                   
+                    <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@item.Id">Update</a>
+
+                }
+
+                @if (this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+                {
+                    <span>|</span>
+                    <a class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+            </td>
+        </tr>
+
+            }
+        
+    </tbody>
+
+</table>

@@ -48,6 +48,8 @@ namespace CinemaWrld.Application.Data
                 
         }
 
+        public DbSet<CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels.CinemasIdNameViewModel> CinemasIdNameViewModel { get; set; }
+
      
 
 

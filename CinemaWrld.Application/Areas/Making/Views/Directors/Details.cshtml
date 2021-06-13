@@ -4,12 +4,16 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Director details</h1>
 
 <div>
-    <h4>DirectorsViewModel</h4>
+    <a class="btn btn-warning " asp-action="Index"><--</a>
+</div>
+
+<div>
+  
     <hr />
-    <dl class="row">
+    <dl class="row ">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -37,15 +41,17 @@
     </dl>
 </div>
 <div>
-    @if (this.User.Identity.IsAuthenticated)
+    @if (this.User.IsInRole(RolesConstants.USER_ROLE_NAME) || this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
     {
-        <a asp-action="Update" asp-route-id="@Model.Id">Update</a>
-        <span>|</span>
-        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-        <span>|</span>
 
+        <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@Model.Id">Update</a>
 
 
     }
-    <a asp-action="Index">Back to List</a>
+    @if (this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+    {
+        <span>|</span>
+        <a class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    }
 </div>
+<hr />

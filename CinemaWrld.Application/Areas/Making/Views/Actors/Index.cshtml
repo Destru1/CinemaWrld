@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Actors</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div>
+    <a class="btn btn-outline-dark " asp-action="Create">Create actor</a>
+</div>
+<br />
+
 <table class="table">
     <thead>
         <tr>
@@ -21,7 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Actors.First().PlayingAs)
             </th>
-            <th></th>
+            <th>Links</th>
         </tr>
     </thead>
     <tbody>
@@ -38,17 +40,17 @@
             </td>
             <td>
 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a class="bg-info btn text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-                @if (this.User.Identity.IsAuthenticated)
+                @if (this.User.IsInRole(RolesConstants.USER_ROLE_NAME) || this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
                 {
                     <span>|</span>
-                    <a asp-action="Update" asp-route-id="@item.Id">Update</a>
+                    <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@item.Id">Update</a>
 
                     @if (this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
                     {
                         <span>|</span>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     }
 
 

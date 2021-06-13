@@ -4,13 +4,29 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 class="text-center">Create director</h1>
 
-<h4>CreateDirectorBindingModel</h4>
+
 <hr />
+
+<div>
+    <a class="btn btn-warning " asp-action="Index"><--</a>
+</div>
+<br />
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="w-50 mx-auto">
         <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="MovieId" class="control-label"></label>
+                <select asp-for="MovieId" class="form-control">
+                    @foreach (var movie in ViewBag.Movies)
+                    {
+                        <option value="@movie.Id">@movie.Title</option>
+                    }
+
+                </select>
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -27,24 +43,16 @@
                 <input asp-for="Nationality" class="form-control" />
                 <span asp-validation-for="Nationality" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MovieId" class="control-label"></label>
-                <select asp-for="MovieId" class="form-control">
-                    @foreach (var movie in ViewBag.Movies)
-                    {
-                        <option value="@movie.Id">@movie.Title</option>
-                    }
 
-                </select>
-            </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-warning w-100 mx-auto " />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

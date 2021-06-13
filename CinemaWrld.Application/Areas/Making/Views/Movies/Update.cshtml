@@ -6,10 +6,13 @@
 
 <h1 class="text-center">Update movie</h1>
 
+
+<hr />
 <div>
     <a class="btn btn-warning " asp-action="Index"><--</a>
 </div>
-<hr />
+<br />
+
 <div class="row">
     <div class="w-50 mx-auto">
         <form asp-action="Update">
@@ -86,3 +89,6 @@
 </div>
 
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
