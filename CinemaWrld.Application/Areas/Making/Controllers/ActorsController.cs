@@ -1,6 +1,7 @@
 ﻿using CinemaWrld.Application.Areas.Making.Models.Actors.BindingModels;
 using CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
+using CinemaWrld.Application.Constants;
 using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
 
         public IActionResult Create()
         {
@@ -62,7 +63,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(CreateActorBindingModel model)
         {
@@ -77,7 +78,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Update(int id)
         {
             UpdateActorBindingModel actor = this.actorsService.UpdateById(id);
@@ -99,7 +100,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
 
         public async Task<IActionResult> Update(UpdateActorBindingModel model)
@@ -114,7 +115,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.actorsService.DeleteAsync(id);

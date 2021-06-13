@@ -78,7 +78,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles =RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Create()
         {
             IEnumerable<CinemasIdNameViewModel> cinemas = this.moviesService.GetByName();
@@ -90,6 +90,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
                 return this.RedirectToAction("index");
             }
 
+
             this.ViewBag.cinemas = cinemas;
 
             return this.View();
@@ -97,7 +98,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
 
         public async Task<IActionResult> Create(CreateMovieBindingModel model)
@@ -107,6 +108,12 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
                 return this.RedirectToAction("create");
             }
 
+            if (model.PremiereDate > model.LastProjectionDate)
+            {
+                this.TempData[NotificationsConstants.ERROR_NOTIFICATION] = NotificationsConstants.DATE_ERROR;
+                return this.RedirectToAction("index");
+            }
+
             await this.moviesService.CreateAsync(model);
 
             return this.RedirectToAction("index");
@@ -114,7 +121,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
 
         public IActionResult Update(int id)
         {
@@ -137,7 +144,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UpdateMovieBindingModel model)
         {
@@ -152,7 +159,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.moviesService.DeleteAsync(id);

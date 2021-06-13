@@ -13,7 +13,7 @@ namespace CinemaWrld.Application.Services
 {
     public class ActorsService : IActorsService
     {
-        private const int ACTORS_PER_PAGE = 2;
+        private const int ACTORS_PER_PAGE = 4;
 
         private readonly ApplicationDbContext dbContext;
 

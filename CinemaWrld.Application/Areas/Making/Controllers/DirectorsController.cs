@@ -1,6 +1,7 @@
 ﻿using CinemaWrld.Application.Areas.Making.Models.Directors.BindingModels;
 using CinemaWrld.Application.Areas.Making.Models.Directors.ViewModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
+using CinemaWrld.Application.Constants;
 using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Create()
         {
             IEnumerable<GetAllMoviesViewModel> movies = this.directorsService.GetByName();
@@ -60,7 +61,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(CreateDirectorBindingModel model)
         {
@@ -75,7 +76,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Update(int id)
         {
             UpdateDirectorBindingModel director = this.directorsService.UpdateById(id);
@@ -98,7 +99,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
         [HttpPost]
         [Authorize]
-        [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public async Task<IActionResult> Update(UpdateDirectorBindingModel model)
         {
             if (this.ModelState.IsValid == false)
@@ -112,7 +113,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.directorsService.DeleteAsync(id);

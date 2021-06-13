@@ -1,5 +1,6 @@
 ﻿using CinemaWrld.Application.Areas.Making.Models.Cinemas.BindingModels;
 using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
+using CinemaWrld.Application.Constants;
 using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
@@ -60,15 +61,15 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-    
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
+
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
 
         public async Task<IActionResult> Create(CreateCinemaBindingModel model)
@@ -106,7 +107,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Update(int id)
         {
             CinemaViewModel  cinema = this.cinemasService.GetForViewById(id);
@@ -123,7 +124,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(UpdateCinemaBindingModel model)
         {
@@ -135,10 +136,12 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = RolesConstants.ADMIN_ROLE_NAME)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.cinemasService.DeleteAsync(id);
+
+            this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFULLY_DELETED_CINEMA;
 
             return this.RedirectToAction("index");
         }

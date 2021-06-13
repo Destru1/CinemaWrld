@@ -87,6 +87,11 @@ namespace CinemaWrld.Application.Services
         {
             Movie movie = this.dbContext.Movies
                 .SingleOrDefault(movie => movie.Id == movieId);
+            if (movie.Votes <= 0 )
+            {
+                throw new ArgumentException(ExceptionConstants.INVALID_OPERATION);
+            }
+
             movie.Votes -= 1;
 
             this.dbContext.Update(movie);
