@@ -36,6 +36,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
             ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
             IEnumerable<GetAllMoviesViewModel> movies = this.moviesService.GetAll(currentUser.Id);
 
+            
+
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["YearSortParm"] = sortOrder == "int" ? "year_desc" : "int";
             ViewData["VoteSortParm"] = sortOrder == "int" ? "vote_desc" : "int";
@@ -113,6 +115,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
                 this.TempData[NotificationsConstants.ERROR_NOTIFICATION] = NotificationsConstants.DATE_ERROR;
                 return this.RedirectToAction("index");
             }
+
+            this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFULLY_ADDED_MOVIE;
 
             await this.moviesService.CreateAsync(model);
 

@@ -70,6 +70,8 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
                 return this.RedirectToAction("create");
             }
 
+            this.TempData[NotificationsConstants.SUCCESS_NOTIFICATION] = NotificationsConstants.SUCCESSFULLY_ADDED_DIRECTOR;
+
             await this.directorsService.CreateAsync(model);
 
             return this.RedirectToAction("index");
