@@ -3,6 +3,40 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to CinemaWrld</h1>
+
 </div>
+<br />
+
+
+@if (this.User.Identity.IsAuthenticated)
+{
+<div class="card-group">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top w-100" src="~/Image/Cinema.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Find cinemas near you. Add your cinema information here to help everyone find their nearest cinemas.</p>
+            <a asp-area="Making" asp-controller="Cinemas" class="btn btn-dark">Go to cinemas</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top w-100 " src="~/Image/Movie.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">Chek upcomming projections in your local cinema, or add upcomming and returnig movies. Vote for your favourite movies.</p>
+            <a asp-area="Making" asp-controller="Movies" class="btn btn-dark">Go to movies</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top w-100" src="~/Image/Actor.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">See which actors are starring in the movie you want to see. If we are missing someone, feel free to add them.</p>
+            <a asp-area="Making" asp-controller="Actors" class="btn btn-dark">Go to actors</a>
+        </div>
+    </div>
+</div>
+}
+
+else
+	{
+	           <h4 class="text-center">Login or register <a asp-area="Identity" asp-controller="Account"asp-action="Register" >here</a> to have access to more features of the application. </h4>
+	}
