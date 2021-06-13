@@ -18,9 +18,11 @@ namespace CinemaWrld.Application.Constants
         public const string SUCCESSFULLY_ADDED_DIRECTOR = "Successfully added director!";
         public const string SUCCESSFULLY_VOTED_MOVIE = "Successfully voted for this movie!";
         public const string SUCCESSFULLY_UNVOTED_MOVIE = "Successfully removed your vote for this movie!";
-   
+        public const string SUCCESSFULLY_DELETED_CINEMA = "Successfully deleted cinema!";
 
 
+
+        public const string DATE_ERROR = "Premiere date can't be bigger than last projection date";
 
 
 

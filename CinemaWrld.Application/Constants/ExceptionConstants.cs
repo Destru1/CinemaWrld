@@ -11,6 +11,8 @@ namespace CinemaWrld.Application.Constants
         public const string NOT_EXISTING_MOVIE_ERROR_MESSAGE = "Such a movie does not exist";
         public const string ALREADY_VOTED_MOVIE = "You have already voted for this movie";
         public const string ALREADY_UNVOTED_MOVIE = "You have already removed your vote for this movie";
+        public const string INVALID_OPERATION = "Invalid operation";
+
         
 
         
