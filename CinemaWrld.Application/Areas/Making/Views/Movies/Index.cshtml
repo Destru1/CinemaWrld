@@ -4,12 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Movies</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table" >
+<div>
+    <a class="btn btn-outline-dark " asp-action="Create">Create New</a>
+</div>
+<br />
+
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -26,59 +28,68 @@
         </tr>
     </thead>
     <tbody class="d-print-table-row">
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
 
-            <td>
-                <a class="bg-info btn text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <td>
 
-                @if (this.User.Identity.IsAuthenticated)
-                {
-                    <span>|</span>
-                    <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                    <a class="bg-info btn text-white" asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                    @if (this.User.IsInRole(RolesConstants.USER_ROLE_NAME) || this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+                    {
+                        <span>|</span>
+                        <a class="btn bg-primary text-white" asp-action="Update" asp-route-id="@item.Id">Update</a>
+
+                    }
+
+                    @if (this.User.IsInRole(RolesConstants.ADMIN_ROLE_NAME))
+                    {
                     <span>|</span>
                     <a class="btn bg-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-
-
-
-                }
-            </td>
-            <td>
-                @if (!item.UserHasVoted)
-                {
-                    <a asp-area="Making"
-                       asp-controller="Movies"
-                       asp-action="Enroll"
-                       asp-route-id="@item.Id"
-                       class="btn btn-outline-success w-50">
-                        Vote
-                    </a>
+                    }
+                </td>
+                <td>
+                    @if (!item.UserHasVoted)
+                    {
+                        <a asp-area="Making"
+                           asp-controller="Movies"
+                           asp-action="Enroll"
+                           asp-route-id="@item.Id"
+                           class="btn btn-outline-success w-50">
+                            Vote
+                        </a>
 
 
 
 
-                }
-                else
-                {
-                    <a asp-area="Making"
-                       asp-controller="Movies"
-                       asp-action="Disenroll"
-                       asp-route-id="@item.Id"
-                       class="btn btn-outline-danger w-50">
-                        Unvote
-                    </a>
-                }
-            </td>
+                    }
+                    else
+                    {
+                        <a asp-area="Making"
+                           asp-controller="Movies"
+                           asp-action="Disenroll"
+                           asp-route-id="@item.Id"
+                           class="btn btn-outline-danger w-50">
+                            Unvote
+                        </a>
+                    }
+                </td>
 
-            <td class="font-weight-bolder">@Html.DisplayFor(modelitem => item.Votes)</td>
-        </tr>
-}
+                <td class="font-weight-bolder">@Html.DisplayFor(modelitem => item.Votes)</td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+
+
+	

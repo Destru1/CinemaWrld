@@ -4,14 +4,30 @@
     ViewData["Title"] = "Update";
 }
 
-<h1>Update</h1>
+<h1 class="text-center">Update movie</h1>
 
-<h4>UpdateMovieBindingModel</h4>
+<div>
+    <a class="btn btn-warning " asp-action="Index"><--</a>
+</div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="w-50 mx-auto">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="CinemaId" class="control-label"></label>
+                <select asp-for="CinemaId" class="form-control">
+                    @foreach (var cinema in ViewBag.Cinemas)
+                    {
+                        <option value="@cinema.Id">@cinema.Name</option>
+                    }
+
+                </select>
+
+
+            </div>
+
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -61,26 +77,12 @@
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CinemaId" class="control-label"></label>
-                <select asp-for="CinemaId" class="form-control">
-                    @foreach (var cinema in ViewBag.Cinemas)
-                    {
-                        <option value="@cinema.Id">@cinema.Name</option>
-                    }
 
-                </select>
-
-                
-            </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save changes" class="btn btn-warning w-100 mx-auto" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
