@@ -54,7 +54,7 @@ namespace CinemaWrld.Application.Services
             };
 
 
-             return paginationActors;
+            return paginationActors;
         }
 
         public ActorsViewModel GetById(int id)

@@ -4,8 +4,6 @@ using CinemaWrld.Application.Data.Seed.Seeders.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Data.Seed.Seeders
@@ -13,7 +11,7 @@ namespace CinemaWrld.Application.Data.Seed.Seeders
     public class UsersSeeder : ISeeder
     {
 
-    
+
 
 
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)

@@ -5,7 +5,6 @@ using CinemaWrld.Application.Constants;
 using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
     public class ActorsController : MakingController
     {
         private readonly IActorsService actorsService;
-     
+
 
         public ActorsController(IActorsService actorsService)
         {

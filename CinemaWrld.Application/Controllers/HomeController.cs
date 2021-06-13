@@ -1,11 +1,7 @@
 ﻿using CinemaWrld.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Controllers
 {
@@ -31,7 +27,7 @@ namespace CinemaWrld.Application.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { ErrorCode = 500, RequestId =  Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { ErrorCode = 500, RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

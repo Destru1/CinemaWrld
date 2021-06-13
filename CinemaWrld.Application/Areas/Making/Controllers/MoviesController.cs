@@ -36,18 +36,18 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
             ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
             IEnumerable<GetAllMoviesViewModel> movies = this.moviesService.GetAll(currentUser.Id);
 
-            
+
 
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["YearSortParm"] = sortOrder == "int" ? "year_desc" : "int";
             ViewData["VoteSortParm"] = sortOrder == "int" ? "vote_desc" : "int";
-            
+
 
             switch (sortOrder)
             {
                 case "name_desc":
                     movies = movies.OrderByDescending(m => m.Title);
-                        break;
+                    break;
 
                 case "year_desc":
                     movies = movies.OrderByDescending(m => m.Year);
@@ -80,7 +80,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles =RolesConstants.USER_ADMIN_AUTHORISED)]
+        [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Create()
         {
             IEnumerable<CinemasIdNameViewModel> cinemas = this.moviesService.GetByName();
@@ -96,7 +96,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
             this.ViewBag.cinemas = cinemas;
 
             return this.View();
-            
+
         }
 
         [HttpPost]
@@ -177,7 +177,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         {
             ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
 
-                bool isEnrolled = await this.movieUsersService.EnrollUserToVoteAsync(currentUser.Id, id);
+            bool isEnrolled = await this.movieUsersService.EnrollUserToVoteAsync(currentUser.Id, id);
 
             if (isEnrolled)
             {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels
+﻿namespace CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels
 {
     public class GetAllMoviesViewModel
     {

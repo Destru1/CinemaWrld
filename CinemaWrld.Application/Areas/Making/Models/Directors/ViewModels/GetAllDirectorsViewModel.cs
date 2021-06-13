@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace CinemaWrld.Application.Areas.Making.Models.Directors.ViewModels
 {
@@ -10,7 +6,7 @@ namespace CinemaWrld.Application.Areas.Making.Models.Directors.ViewModels
     {
         public int Id { get; set; }
 
-        public string  Name { get; set; }
+        public string Name { get; set; }
 
         [DisplayName("Directing movie")]
         public string MovieDirecting { get; set; }

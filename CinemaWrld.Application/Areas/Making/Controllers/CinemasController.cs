@@ -1,32 +1,27 @@
 ﻿using CinemaWrld.Application.Areas.Making.Models.Cinemas.BindingModels;
 using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
 using CinemaWrld.Application.Constants;
-using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Areas.Making.Controllers
 {
-   
+
     public class CinemasController : MakingController
     {
 
-        
+
         //private readonly IWebHostEnvironment hostEnvironment;
         private readonly ICinemasService cinemasService;
 
         public CinemasController(ICinemasService cinemasService)
         {
-          
-            
+
+
             this.cinemasService = cinemasService;
         }
 
@@ -82,7 +77,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
             {
                 return this.RedirectToAction("index");
 
-             
+
             }
             await this.cinemasService.CreateAsync(model);
 
@@ -110,7 +105,7 @@ namespace CinemaWrld.Application.Areas.Making.Controllers
         [Authorize(Roles = RolesConstants.USER_ADMIN_AUTHORISED)]
         public IActionResult Update(int id)
         {
-            CinemaViewModel  cinema = this.cinemasService.GetForViewById(id);
+            CinemaViewModel cinema = this.cinemasService.GetForViewById(id);
 
             bool isCinemaNull = cinema == null;
 

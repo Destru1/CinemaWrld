@@ -4,7 +4,6 @@ using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
 using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

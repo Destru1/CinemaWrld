@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using CinemaWrld.Application.Data.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using CinemaWrld.Application.Data.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Areas.Identity.Pages.Account
 {
@@ -22,7 +18,7 @@ namespace CinemaWrld.Application.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -67,7 +63,7 @@ namespace CinemaWrld.Application.Areas.Identity.Pages.Account
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-           
+
 
             ReturnUrl = returnUrl;
         }
@@ -76,8 +72,8 @@ namespace CinemaWrld.Application.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
-          
-        
+
+
             if (ModelState.IsValid)
             {
                 ApplicationUser user = await this._userManager.FindByEmailAsync(Input.Email);

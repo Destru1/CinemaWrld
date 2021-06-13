@@ -4,7 +4,6 @@ using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,27 +11,27 @@ namespace CinemaWrld.Application.Services
 {
     public class MovieUsersService : IMovieUsersService
     {
-       
+
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
-       
+
 
         public MovieUsersService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
-           
+
         }
 
         public async Task<bool> EnrollUserToVoteAsync(string userId, int movieId)
         {
             await CheckIfMoviesAndUsersExistAsync(userId, movieId);
 
-            if (this.HasAlreadyVoted(userId,movieId))
+            if (this.HasAlreadyVoted(userId, movieId))
             {
                 return false;
             }
-           
+
 
             MovieUser movieUser = new MovieUser()
             {
@@ -87,7 +86,7 @@ namespace CinemaWrld.Application.Services
         {
             Movie movie = this.dbContext.Movies
                 .SingleOrDefault(movie => movie.Id == movieId);
-            if (movie.Votes <= 0 )
+            if (movie.Votes <= 0)
             {
                 throw new ArgumentException(ExceptionConstants.INVALID_OPERATION);
             }
@@ -117,8 +116,8 @@ namespace CinemaWrld.Application.Services
 
         private MovieUser GetVote(string userId, int movieId)
         {
-          MovieUser vote = this.dbContext.MoviesUsers
-                .FirstOrDefault(mu => mu.UserId == userId && mu.MovieId == movieId);
+            MovieUser vote = this.dbContext.MoviesUsers
+                  .FirstOrDefault(mu => mu.UserId == userId && mu.MovieId == movieId);
 
             return vote;
         }

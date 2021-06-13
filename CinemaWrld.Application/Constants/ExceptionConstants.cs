@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CinemaWrld.Application.Constants
+﻿namespace CinemaWrld.Application.Constants
 {
     public static class ExceptionConstants
     {
@@ -13,8 +8,8 @@ namespace CinemaWrld.Application.Constants
         public const string ALREADY_UNVOTED_MOVIE = "You have already removed your vote for this movie";
         public const string INVALID_OPERATION = "Invalid operation";
 
-        
 
-        
+
+
     }
 }

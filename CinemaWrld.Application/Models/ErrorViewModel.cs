@@ -1,5 +1,3 @@
-using System;
-
 namespace CinemaWrld.Application.Models
 {
     public class ErrorViewModel

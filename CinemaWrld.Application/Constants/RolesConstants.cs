@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CinemaWrld.Application.Constants
+﻿namespace CinemaWrld.Application.Constants
 {
-    public  static class RolesConstants
+    public static class RolesConstants
     {
         public const string USER_ROLE_NAME = "User";
         public const string ADMIN_ROLE_NAME = "Admin";

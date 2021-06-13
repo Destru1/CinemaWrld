@@ -3,7 +3,6 @@ using CinemaWrld.Application.Data.Seed.Seeders.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Data.Seed

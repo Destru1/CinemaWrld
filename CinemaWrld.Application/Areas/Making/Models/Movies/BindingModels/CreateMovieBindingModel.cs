@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
 {
@@ -14,13 +11,13 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
         [MaxLength(64)]
         public string Title { get; set; }
 
-     
 
-        
+
+
         public string Genre { get; set; }
 
 
-      
+
 
         [Required]
         [DisplayName("Age restricted")]
@@ -33,7 +30,7 @@ namespace CinemaWrld.Application.Areas.Making.Models.Movies.BindingModels
 
         [Required]
         [DisplayName("Duration (minutes)")]
-        [Range(60,220)]
+        [Range(60, 220)]
         public int Duration { get; set; }
 
         [Required]

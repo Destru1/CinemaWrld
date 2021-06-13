@@ -4,7 +4,6 @@ using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
 using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -99,7 +98,7 @@ namespace CinemaWrld.Application.Services
                 .SingleOrDefault(m => m.Id == id);
 
             return movies;
-                
+
         }
 
 
@@ -130,7 +129,7 @@ namespace CinemaWrld.Application.Services
             await this.dbContext.Movies.AddAsync(movie);
             await this.dbContext.SaveChangesAsync();
 
-            
+
         }
 
 
@@ -178,7 +177,7 @@ namespace CinemaWrld.Application.Services
             await this.dbContext.SaveChangesAsync();
         }
 
-       
+
 
 
     }

@@ -3,7 +3,6 @@ using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
 using CinemaWrld.Application.Data;
 using CinemaWrld.Application.Data.Models;
 using CinemaWrld.Application.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,12 +12,12 @@ namespace CinemaWrld.Application.Services
     public class CinemasService : ICinemasService
     {
         private readonly ApplicationDbContext dbContext;
-        
+
 
         public CinemasService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
-         
+
         }
 
 
@@ -48,7 +47,7 @@ namespace CinemaWrld.Application.Services
         }
 
 
-         public CinemaViewModel GetForViewById(int id)
+        public CinemaViewModel GetForViewById(int id)
         {
             CinemaViewModel cinema = this.dbContext.Cinemas
                 .Select(c => new CinemaViewModel
@@ -64,7 +63,7 @@ namespace CinemaWrld.Application.Services
 
         }
 
-       public Cinema GetByName(string name)
+        public Cinema GetByName(string name)
         {
             Cinema cinemaFromDb = this.dbContext.Cinemas
                 .SingleOrDefault(c => c.Name == name);
@@ -73,7 +72,7 @@ namespace CinemaWrld.Application.Services
         }
 
 
-       public async Task CreateAsync(CreateCinemaBindingModel model)
+        public async Task CreateAsync(CreateCinemaBindingModel model)
         {
             Cinema cinema = new Cinema();
             cinema.Name = model.Name;
@@ -84,8 +83,8 @@ namespace CinemaWrld.Application.Services
             await this.dbContext.SaveChangesAsync();
         }
 
-        
-       public async Task UpdateAsync(UpdateCinemaBindingModel model)
+
+        public async Task UpdateAsync(UpdateCinemaBindingModel model)
         {
             Cinema cinema = this.GetById(model.Id);
 
@@ -102,7 +101,7 @@ namespace CinemaWrld.Application.Services
             await this.dbContext.SaveChangesAsync();
         }
 
-      public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             Cinema cinema = this.GetById(id);
 

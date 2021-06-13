@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Data.Models
 {
@@ -26,7 +21,7 @@ namespace CinemaWrld.Application.Data.Models
 
         public string PhoneNumber { get; set; }
 
-     
+
         public virtual ICollection<Movie> Movies { get; set; }
     }
 }

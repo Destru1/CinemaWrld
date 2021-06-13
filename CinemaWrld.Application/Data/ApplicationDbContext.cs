@@ -1,13 +1,6 @@
 ﻿using CinemaWrld.Application.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using CinemaWrld.Application.Models;
-using CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels;
-using CinemaWrld.Application.Areas.Making.Models.Actors.ViewModels;
-using CinemaWrld.Application.Areas.Making.Models.Actors.BindingModels;
 
 namespace CinemaWrld.Application.Data
 {
@@ -45,12 +38,12 @@ namespace CinemaWrld.Application.Data
             base.OnModelCreating(builder);
 
             builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-                
+
         }
 
         public DbSet<CinemaWrld.Application.Areas.Making.Models.Cinemas.ViewModels.CinemasIdNameViewModel> CinemasIdNameViewModel { get; set; }
 
-     
+
 
 
     }

@@ -1,9 +1,7 @@
 ﻿using CinemaWrld.Application.Areas.Making.Models.Directors.BindingModels;
 using CinemaWrld.Application.Areas.Making.Models.Directors.ViewModels;
 using CinemaWrld.Application.Areas.Making.Models.Movies.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CinemaWrld.Application.Services.Interfaces
